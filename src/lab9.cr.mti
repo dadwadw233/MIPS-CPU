@@ -1,4 +1,131 @@
-F:/modelsim/lab9/top.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/top.v
+F:/modelsim/lab9/mips_tb.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/mips_tb.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module mips_tb
+
+Top level modules:
+	mips_tb
+
+} {} {}} F:/modelsim/lab9/addConfirm.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/addConfirm.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/bypassCtrl.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/bypassCtrl.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module bypassCtrl
+
+Top level modules:
+	bypassCtrl
+
+} {} {}} F:/modelsim/lab9/ansConfirm.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/ansConfirm.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/riskDetection.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/riskDetection.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module riskDetection
+
+Top level modules:
+	riskDetection
+
+} {} {}} F:/modelsim/lab9/RF.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/RF.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module RF
+
+Top level modules:
+	RF
+
+} {} {}} F:/modelsim/lab9/EXT.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/EXT.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module EXT
+
+Top level modules:
+	EXT
+
+} {} {}} F:/modelsim/lab9/ALU.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/ALU.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} F:/modelsim/lab9/MUX.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/MUX.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module _32bitMux
+-- Compiling module _5bitMux
+-- Compiling module sigCtrlMux
+-- Compiling module ALUmux
+-- Compiling module Jumpmux
+
+Top level modules:
+	_32bitMux
+	_5bitMux
+	sigCtrlMux
+	ALUmux
+	Jumpmux
+
+} {} {}} F:/modelsim/lab9/CTRL.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/CTRL.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module CTRL
+
+Top level modules:
+	CTRL
+
+} {} {}} F:/modelsim/lab9/branchCal.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/branchCal.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module branchCal
+
+Top level modules:
+	branchCal
+
+} {} {}} F:/modelsim/lab9/REG.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/REG.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module IFtoID
+-- Compiling module IDtoEX
+-- Compiling module EXtoMEM
+-- Compiling module MEMtoWB
+
+Top level modules:
+	IFtoID
+	IDtoEX
+	EXtoMEM
+	MEMtoWB
+
+} {} {}} F:/modelsim/lab9/im.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/im.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module im_4k
+
+Top level modules:
+	im_4k
+
+} {} {}} F:/modelsim/lab9/npcCalculation.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/npcCalculation.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module npcCalculation
+
+Top level modules:
+	npcCalculation
+
+} {} {}} F:/modelsim/lab9/JumpCtrl.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/JumpCtrl.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/definition.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/definition.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/dm.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/dm.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module dm_4k
+
+Top level modules:
+	dm_4k
+
+} {} {}} F:/modelsim/lab9/mips.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/mips.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/top.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/top.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+
+} {} {}} F:/modelsim/lab9/PC.v {1 {vlog -work work -vopt -stats=none F:/modelsim/lab9/PC.v
+Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
+-- Compiling module PC
+
+Top level modules:
+	PC
 
 } {} {}}

@@ -2,10 +2,15 @@ module IFtoID(
 input clk,
 input IFtoIDWrite,
 input [31:0] PC,
-output reg [63:0] IFout 
+output reg [63:0] IFout,
+input branchCtrl,
+input jumpCtrl 
 );
 always @(posedge clk)begin
-	if(IFtoIDWrite)begin
+	if(branchCtrl||jumpCtrl)begin
+		IFout<=64'b0;
+	end
+	else if(IFtoIDWrite)begin
 		IFout<=IFout;
 	end
 	else begin
@@ -24,6 +29,7 @@ input MemWrite,
 input MentoReg,
 input Branch,
 input [3:0] ALUOp,
+input ALUjumplimk,
 input [2:0] Loadop,
 input [1:0] Saveop,
 input [63:0] IFout,
@@ -33,10 +39,10 @@ input [31:0] EXTImm,
 input [4:0] rs,
 input [4:0] rt,
 input [4:0] rd,
-output reg [158:0]IDout
+output reg [159:0]IDout
 );
 always @(posedge clk)begin
-	IDout<={RegDst,RegWrite,ALUSrc,MemRead,MemWrite,MentoReg,Branch,ALUOp,Loadop,Saveop,IFout[63:32],RegOutA,RegOutB,EXTImm,rs,rt,rd};
+	IDout<={RegDst,RegWrite,ALUSrc,MemRead,MemWrite,MentoReg,Branch,ALUOp,ALUjumplimk,Loadop,Saveop,IFout[63:32],RegOutA,RegOutB,EXTImm,rs,rt,rd};
 end
 endmodule
 

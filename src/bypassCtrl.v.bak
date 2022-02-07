@@ -11,22 +11,20 @@ module bypassCtrl(
 	always @(*)begin
 		forwardA = 2'b00;
 		forwardB = 2'b00;
-		if(EXoutRegWrite&&EXoutrd!=0)begin
+		if()
 		if(EXoutrd == IDoutrs)begin
 			forwardA = 2'b01;
 		end
 		if(EXoutrd == IDoutrt)begin
 			forwardB = 2'b01;
 		end
-		end
-		if(MenoutRegWrite&&MEMoutrd!=0)begin
 		if(MEMoutrd == IDoutrs && forwardA!=2'b01)begin
 			forwardA = 2'b10;
 		end
 		if(MEMoutrd == IDoutrt && forwardB!=2'b01)begin
 			forwardB = 2'b10;
 		end
-		end
+		
 	end
 
 

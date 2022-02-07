@@ -32,7 +32,7 @@ output reg MemRead,
 output reg MemWrite,
 output reg MentoReg,
 output reg Branch,
-output reg [1:0] ALUOp,
+output reg [3:0] ALUOp,
 input riskSig
 );
 always @(*)begin
@@ -43,8 +43,8 @@ always @(*)begin
 		 MemRead <= 1'b0;
 		 MemWrite <= 1'b0;
 		 MentoReg <= 1'b0;
-		 Branch <= 1'b0;
-		 ALUOp <= 2'b0;
+		 Branch <= Branch_;
+		 ALUOp <= 4'b1111;
 	end
 	else begin
 		 RegDst <= RegDst_;
@@ -56,5 +56,35 @@ always @(*)begin
 		 Branch <= Branch_;
 		 ALUOp <= ALUOp_;
 	end
+end
+endmodule
+
+module ALUmux(
+	input [1:0]ctrl,
+	input [31:0]source,
+	input [31:0]aluAns,
+	input [31:0]memAns,
+	output reg [31:0] out
+);
+always @(*)begin
+	case(ctrl)
+		2'b00:out=source;
+		2'b01:out=aluAns;
+		2'b10:out=memAns;
+		default:out=source;
+	endcase
+end
+endmodule
+
+module Jumpmux(
+	input [4:0] source,
+	input [1:0] jumpType,
+	output reg [4:0] out
+);
+always @(*)begin
+	if(jumpType==2'b01)
+		out = 5'b11111;
+	else 
+		out = source;
 end
 endmodule

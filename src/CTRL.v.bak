@@ -2,6 +2,7 @@
 module CTRL(
 	input [5:0] funcode,
 	input [20:16] rt,
+	input [5:0] specialcode,
 	output reg RegDst,
 	output reg RegWrite,
 	output reg ALUSrc,
@@ -11,7 +12,10 @@ module CTRL(
 	output reg Branch,
 	output reg [3:0] ALUOp,
 	output reg [2:0] Loadop,
-    output reg [1:0] Saveop
+    output reg [1:0] Saveop,
+	output reg EXTOp,
+	output reg ALUjumplink,
+	output reg jumpReg
 );
 
 always @(funcode)begin
@@ -20,11 +24,10 @@ always @(funcode)begin
 	RegDst=1;
 	RegWrite = 1;
 	end
-	`JALR:begin
+	`JAL:begin
 	RegDst=1;
 	RegWrite = 1;
 	end
-	`JAL:RegDst=1;
 	`LW,`LB,`LBU,`LH,`LHU,`LUI,`ADDI,`ADDIU,`ANDI,`ORI,`SLTI,`SLTIU,`XORI:begin
 	RegDst=0;
 	RegWrite = 1;
@@ -74,7 +77,7 @@ end
 
 always @(funcode)begin
 	case(funcode)
-		6'b000000,`ADDI,`ADDIU,`ANDI,`ORI,`SLTI,`SLTIU,`XORI:ALUOp=4'b0000;//normal calculate
+		6'b000000:ALUOp=4'b0000;//normal calculate
 		6'b000001:begin
 			if(rt==`BGEZ) ALUOp =4'b0010;//branch greater equal
 			else ALUOp = 4'b0101;// branch lower
@@ -89,7 +92,8 @@ always @(funcode)begin
 		`ANDI:ALUOp = 4'b1010;//and imm
 		`ORI:ALUOp = 4'b1011;//or imm
 		`XORI:ALUOp = 4'b1100;//xor imm
-		`SLTI,`SLTIU ALUOp = 4'b1101;
+		`SLTI:ALUOp = 4'b1101;
+		`SLTIU:ALUOp = 4'b1110;
 		default:ALUOp = 4'b1111;//no calculate
 	endcase
 end
@@ -113,4 +117,30 @@ always @(funcode)begin
 	default:Saveop = 2'b11;
 	endcase
 end 
+
+always @(funcode)begin
+	case(funcode)
+	`ANDI,`ORI,`XORI:EXTOp = 0;
+	default:EXTOp = 1;
+	endcase
+end
+
+always @(funcode)begin
+	case(funcode)
+	`JAL:ALUjumplink = 1;
+	6'b000000:begin
+		if(specialcode==`JALR)
+		ALUjumplink = 1;
+		else ALUjumplink = 0;
+	end
+	default:ALUjumplink = 0;
+	endcase
+end
+
+always @(funcode)begin
+	case(specialcode)
+	`JR,`JALR:jumpReg=1;
+	default:jumpReg=0;
+	endcase
+end
 endmodule

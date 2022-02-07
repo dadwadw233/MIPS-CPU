@@ -42,20 +42,6 @@ output reg [1:0] jumpType
 			pipelineCtrl=0;
 			jumpType=2'b10;
 			end
-			else begin
-			if(IDoutMemRead&&((IDoutrt==IFoutrs)||(IDoutrt==IFoutrt)))begin
-			branchCtrl=0;
-			jumpCtrl=0;
-			pipelineCtrl=1;
-			jumpType=2'b00;
-			end
-			else begin
-			branchCtrl=0;
-			jumpCtrl=0;
-			pipelineCtrl=0;
-			jumpType=2'b00;
-			end
-			end
 		end
 		default:begin
 			if(IDoutMemRead&&((IDoutrt==IFoutrs)||(IDoutrt==IFoutrt)))begin
