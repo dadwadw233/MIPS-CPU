@@ -10,27 +10,27 @@ module branchCal(
 		if(branch)begin
 			case(ALUop)
 			4'b0010:begin
-				if(RegoutA>=0)PCsrc =1;
+				if($signed(RegoutA)>=0)PCsrc =1;
 				else PCsrc = 0;
 			end
 			4'b0101:begin
-				if(RegoutA<0)PCsrc =1;
+				if($signed(RegoutA)<0)PCsrc =1;
 				else PCsrc = 0;
 			end
 			4'b0001:begin
-				if(RegoutA==RegoutB)PCsrc =1;
+				if($signed(RegoutA)==$signed(RegoutB))PCsrc =1;
 				else PCsrc = 0;
 			end
 			4'b0011:begin
-				if(RegoutA>0)PCsrc =1;
+				if($signed(RegoutA)>0)PCsrc =1;
 				else PCsrc = 0;
 			end
 			4'b0100:begin
-				if(RegoutA<=0)PCsrc =1;
+				if($signed(RegoutA)<=0)PCsrc =1;
 				else PCsrc = 0;
 			end
 			4'b0110:begin
-				if(RegoutA!=RegoutB)PCsrc =1;
+				if($signed(RegoutA)!=$signed(RegoutB))PCsrc =1;
 				else PCsrc = 0;
 			end
 			default:PCsrc = 0;

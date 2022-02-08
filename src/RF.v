@@ -24,7 +24,7 @@ always @(posedge clk or posedge rst)begin
 				RF[i] <= 32'h0000_0000; 
 			end
 	end
-	else if(RegWrite)begin
+	else if(RegWrite&&WriteReg!=5'b0)begin
 		$display("$wr=%d datain%h",WriteReg,DataIn);
 		RF[WriteReg]<=DataIn;
 	end

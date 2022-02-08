@@ -15,14 +15,21 @@ module CTRL(
     output reg [1:0] Saveop,
 	output reg EXTOp,
 	output reg ALUjumplink,
-	output reg jumpReg
+	output reg jumpReg,
+	output reg jump
 );
 
 always @(funcode)begin
 	case(funcode)
-	6'b000000:begin 
+	6'b000000:begin
+	if(specialcode == `JR)begin
+		RegDst=1'bz;
+		RegWrite = 0;
+	end
+	else begin
 	RegDst=1;
 	RegWrite = 1;
+	end
 	end
 	`JAL:begin
 	RegDst=1;
@@ -47,11 +54,14 @@ always @(funcode)begin
 	endcase
 end
 
-always @(funcode)begin
+always @(*)begin
+	if(funcode!=6'b000000)begin
 	case(funcode)
 		`BEQ,`BGEZ,`BGTZ,`BLEZ,`BLTZ,`BNE:Branch=1;
 		default:Branch=0;
 	endcase
+	end
+	else Branch = 0;
 end
 
 always @(funcode)begin
@@ -77,7 +87,11 @@ end
 
 always @(funcode)begin
 	case(funcode)
-		6'b000000:ALUOp=4'b0000;//normal calculate
+		6'b000000:begin
+		if(specialcode == `JALR)ALUOp=4'b1111;
+		else 
+		ALUOp=4'b0000;//normal calculate
+		end
 		6'b000001:begin
 			if(rt==`BGEZ) ALUOp =4'b0010;//branch greater equal
 			else ALUOp = 4'b0101;// branch lower
@@ -125,7 +139,7 @@ always @(funcode)begin
 	endcase
 end
 
-always @(funcode)begin
+always @(*)begin
 	case(funcode)
 	`JAL:ALUjumplink = 1;
 	6'b000000:begin
@@ -137,10 +151,29 @@ always @(funcode)begin
 	endcase
 end
 
-always @(funcode)begin
+always @(*)begin
+	if(funcode==6'b000000)begin
 	case(specialcode)
 	`JR,`JALR:jumpReg=1;
 	default:jumpReg=0;
 	endcase
+	end
+	else begin
+		jumpReg = 0;
+	end
+end
+
+always @ (*)begin
+	if(funcode!=6'b000000)begin
+	if(funcode == `J||funcode == `JAL)
+	jump=1;
+	else jump = 0;
+	end
+	else begin
+		if(specialcode == `JR||specialcode==`JALR)
+		jump = 1;
+		else 
+		jump = 0;
+	end
 end
 endmodule

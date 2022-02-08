@@ -20,10 +20,10 @@ always @(*)begin
 		`OR:ALUResult = A|B;
 		`SLL:ALUResult = B<<s;
 		`SLLV:ALUResult = B<<A[4:0];
-		`SLT:ALUResult = A<B?{31'b0,1'b1}:32'h0000_0000;
+		`SLT:ALUResult = $signed(A)<$signed(B)?{31'b0,1'b1}:32'h0000_0000;
 		`SLTU:ALUResult = {1'b0,A}<{1'b0,B}?{31'b0,1'b1}:32'h0000_0000;
-		`SRA:ALUResult = $signed(b)>>>s;
-		`SRAV:ALUResult = $signed(b)>>>A[4:0];
+		`SRA:ALUResult = $signed(B)>>>s;
+		`SRAV:ALUResult = $signed(B)>>>A[4:0];
 		`SRL:ALUResult = B>>s;
 		`SRLV:ALUResult = B>>A[4:0];
 		`SUB,`SUBU:ALUResult = A-B;
@@ -34,7 +34,7 @@ always @(*)begin
 		ALUResult = A+B;	
 	end
 	4'b1000:begin
-		ALUResult = {extImm[31:16],16'b0};
+		ALUResult = {extImm[15:0],16'b0};
 	end
 	4'b1001:begin
 		ALUResult = A+B;
@@ -49,7 +49,7 @@ always @(*)begin
 		ALUResult = A^B;
 	end
 	4'b1101:begin
-		ALUResult = A<B?{31'b0,1'b1}:32'h0000_0000;
+		ALUResult = $signed(A)<$signed(B)?{31'b0,1'b1}:32'h0000_0000;
 	end
 	4'b1110:begin
 		ALUResult = {1'b0,A}<{1'b0,B}?{31'b0,1'b1}:32'h0000_0000;
@@ -57,9 +57,9 @@ always @(*)begin
 	default:
 	begin
 		if(ALUjumplink)
-		ALUResult = PCadd;
+		ALUResult <= PCadd;
 		else 
-		ALUResult = 32'bz;
+		ALUResult <= 32'bz;
 	end
 	endcase
 end

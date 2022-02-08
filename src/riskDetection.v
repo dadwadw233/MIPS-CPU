@@ -9,7 +9,8 @@ input IDoutMemRead,
 output reg pipelineCtrl,
 output reg branchCtrl,
 output reg jumpCtrl,
-output reg [1:0] jumpType
+output reg [1:0] jumpType,
+output reg riskSig
 );
 	always @(*)begin
 		case(funcode)
@@ -18,15 +19,21 @@ output reg [1:0] jumpType
 			jumpCtrl=0;
 			pipelineCtrl=0;
 			jumpType=2'b00;
+			riskSig = 1;
 		end
 		
 		`J,`JAL:begin
 			branchCtrl=0;
 			jumpCtrl=1;
 			pipelineCtrl=0;
-			if(funcode==`JAL)
+			if(funcode==`JAL)begin
 			jumpType=2'b01;
-			else jumpType=2'b11;
+			riskSig = 0;
+			end
+			else begin
+			jumpType=2'b11;
+			riskSig = 1;
+			end
 		end
 		
 		6'b000000:begin
@@ -35,12 +42,14 @@ output reg [1:0] jumpType
 			jumpCtrl=1;
 			pipelineCtrl=0;
 			jumpType=2'b00;
+			riskSig = 1;
 			end
 			else if(specialcode==`JALR)begin
 			branchCtrl=0;
 			jumpCtrl=1;
 			pipelineCtrl=0;
 			jumpType=2'b10;
+			riskSig = 0;
 			end
 			else begin
 			if(IDoutMemRead&&((IDoutrt==IFoutrs)||(IDoutrt==IFoutrt)))begin
@@ -48,12 +57,14 @@ output reg [1:0] jumpType
 			jumpCtrl=0;
 			pipelineCtrl=1;
 			jumpType=2'b00;
+			riskSig = 1;
 			end
 			else begin
 			branchCtrl=0;
 			jumpCtrl=0;
 			pipelineCtrl=0;
 			jumpType=2'b00;
+			riskSig = 0;
 			end
 			end
 		end
@@ -63,14 +74,16 @@ output reg [1:0] jumpType
 			jumpCtrl=0;
 			pipelineCtrl=1;
 			jumpType=2'b00;
+			riskSig =1;
 			end
 			else begin
 			branchCtrl=0;
 			jumpCtrl=0;
 			pipelineCtrl=0;
 			jumpType=2'b00;
+			riskSig = 0;
 			end
 		end
 		endcase
-	end
+		end
 endmodule
